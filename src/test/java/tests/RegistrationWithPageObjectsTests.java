@@ -11,6 +11,7 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class RegistrationWithPageObjectsTests {
+    RegistrationPage registrationPage = new RegistrationPage;
 
         @BeforeAll
 
@@ -23,23 +24,22 @@ public class RegistrationWithPageObjectsTests {
 
         @Test
         void successfulRegistrationTest() {
-            String userName = "Evgenii";
+            String userFirstName = "Kolya";
+            String userLastName = "Bokov";
+            String userEmail = "evgenii@mail.ru";
+            String userGender = "Other";
+            String userNumber = "1234567890";
 
-            new RegistrationPage().openPage();
-            new RegistrationPage().setFirstName(userName);
-            new RegistrationPage().setLastName("Bokov");
+            registrationPage.openPage();
+
+            registrationPage.setFirstName(userFirstName);
+            registrationPage.setLastName(userLastName);
+            registrationPage.setEmail(userEmail);
+            registrationPage.setGender(userGender);
+            registrationPage.setGender(userNumber);
 
 
 
-            $("#firstName").setValue(userName); // [id=userName] = #userName [class=userName] = .userName
-            $("#lastName").setValue("Bokov");
-            $("#userEmail").setValue("evgenii@mail.ru");
-//        $("#gender-radio-1").click(); // wrong
-//        $("#gender-radio-3").parent().click(); // ищем радиокнопку через родителя и тапаем на нее
-//        $(byText("Other")).click(); // not very good
-            $("#genterWrapper").$(byText("Other")).click(); // не очень хороший пример с выбором кнопки для определ локали
-//        $("label[for=gender-radio-3]").click(); // ищем радиокнопку через лэйбл и тапаем на нее
-            $("#userNumber").setValue("1234567890");
             $("#dateOfBirthInput").click(); //// выбор даты рождения в календаре
             $(".react-datepicker__month-select").selectOption("September");  // выбираем день в месяце
 //        $(".react-datepicker__month-select").selectOptionByValue("6");
@@ -64,7 +64,7 @@ public class RegistrationWithPageObjectsTests {
 
             $(".modal-dialog").should(appear);
             $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-            $(".table-responsive").shouldHave(text(userName), text("Bokov"),
+            $(".table-responsive").shouldHave(text(userFirstName), text("Bokov"),
                     text("evgenii@mail.ru"), text("1234567890"));
         }
     }

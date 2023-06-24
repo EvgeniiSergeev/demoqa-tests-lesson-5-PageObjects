@@ -1,6 +1,7 @@
 package pages;
 
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 
@@ -21,6 +22,24 @@ public class RegistrationPage {
     }
 
     public void setLastName(String value) {
+
         $("#LastName").setValue(value);
     }
+    public void setEmail(String value) {
+
+        $("#userEmail").setValue(value);
+
+    }
+    public void setGender(String value) {
+
+        $("#genterWrapper").$(byText(value)).click(); // не очень хороший пример с выбором кнопки для определ локали
+
+    }
+
+    public void setNumber(String value) {
+
+        $("#userNumber").setValue(value);
+
+    }
+
 }
