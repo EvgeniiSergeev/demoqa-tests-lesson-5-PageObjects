@@ -10,61 +10,50 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class RegistrationWithPageObjectsTests {
-    RegistrationPage registrationPage = new RegistrationPage;
-
-        @BeforeAll
-
-        static void beforeAll() {
-
-            Configuration.browser = "firefox";
-            Configuration.browserSize = "1920x1080";
-            Configuration.baseUrl = "https://demoqa.com";
-        }
-
-        @Test
-        void successfulRegistrationTest() {
-            String userFirstName = "Kolya";
-            String userLastName = "Bokov";
-            String userEmail = "evgenii@mail.ru";
-            String userGender = "Other";
-            String userNumber = "1234567890";
-
-            registrationPage.openPage();
-
-            registrationPage.setFirstName(userFirstName);
-            registrationPage.setLastName(userLastName);
-            registrationPage.setEmail(userEmail);
-            registrationPage.setGender(userGender);
-            registrationPage.setGender(userNumber);
+public class RegistrationWithPageObjectsTests extends TestBase {
 
 
+    @Test
+    void successfulRegistrationTest() {
+        String userFirstName = "Kolya";
+        String userLastName = "Bokov";
+        String userEmail = "evgenii@mail.ru";
+        String userGender = "Other";
+        String userNumber = "1234567890";
 
-            $("#dateOfBirthInput").click(); //// выбор даты рождения в календаре
-            $(".react-datepicker__month-select").selectOption("September");  // выбираем день в месяце
+        registrationPage.openPage()
+                .setFirstName(userFirstName)
+                .setLastName(userLastName)
+                .setEmail(userEmail)
+                .setGender(userGender)
+                .setGender(userNumber);
+
+
+        $("#dateOfBirthInput").click(); //// выбор даты рождения в календаре
+        $(".react-datepicker__month-select").selectOption("September");  // выбираем день в месяце
 //        $(".react-datepicker__month-select").selectOptionByValue("6");
-            $(".react-datepicker__year-select").selectOption("1988");
+        $(".react-datepicker__year-select").selectOption("1988");
 //        <div class="react-datepicker__day--030 react-datepicker__day--outside-month">30</div>
 //        <div class="react-datepicker__day--030"                                     >30</div>
 //        $x("//*[@class='react-datepicker__day--030'][not(contains(@class, 'react-datepicker__day--outside-month'))]").click();
-            $(".react-datepicker__day--030:not(.react-datepicker__day--outside-month)").click();
+        $(".react-datepicker__day--030:not(.react-datepicker__day--outside-month)").click();
 //        $x("//*[@class='react-datepicker__day--030'][not(contains(@class, 'react-datepicker__day--outside-month'))]").click();
-            $("#subjectsInput").setValue("Math").pressEnter();
-            $("#hobbiesWrapper").$(byText("Sports")).click(); // ищем чекбокс и тапаем на нее
+        $("#subjectsInput").setValue("Math").pressEnter();
+        $("#hobbiesWrapper").$(byText("Sports")).click(); // ищем чекбокс и тапаем на нее
 //        $("#hobbies-checkbox-1").parent().click();
-            $("#uploadPicture").uploadFromClasspath("img/1.png"); // добавление файлика
+        $("#uploadPicture").uploadFromClasspath("img/1.png"); // добавление файлика
 //        $("#uploadPicture").uploadFile(new File("src/test/resources/img/1.png"));
-            $("#currentAddress").setValue("Some address 1");
-            $("#state").click();
-            $("#stateCity-wrapper").$(byText("NCR")).click(); // выбираем из списка
+        $("#currentAddress").setValue("Some address 1");
+        $("#state").click();
+        $("#stateCity-wrapper").$(byText("NCR")).click(); // выбираем из списка
 //        $("#react-select-3-option-0").click();
-            $("#city").click();
-            $("#stateCity-wrapper").$(byText("Delhi")).click(); // выбираем из списка
-            $("#submit").click();
+        $("#city").click();
+        $("#stateCity-wrapper").$(byText("Delhi")).click(); // выбираем из списка
+        $("#submit").click();
 
-            $(".modal-dialog").should(appear);
-            $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-            $(".table-responsive").shouldHave(text(userFirstName), text("Bokov"),
-                    text("evgenii@mail.ru"), text("1234567890"));
-        }
+        $(".modal-dialog").should(appear);
+        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+        $(".table-responsive").shouldHave(text(userFirstName), text("Bokov"),
+                text("evgenii@mail.ru"), text("1234567890"));
     }
+}

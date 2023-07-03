@@ -7,39 +7,45 @@ import static com.codeborne.selenide.Selenide.executeJavaScript;
 
 public class RegistrationPage {
     private String titleText = "Student Registration Form";
-    public void openPage() {
+    public RegistrationPage openPage() {
 
         open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text(titleText));
         executeJavaScript("$('#fixedban').remove()"); // удаление банеров рекламы со страницы
         executeJavaScript("$('footer').remove()"); // удаление банеров рекламы со страницы
 
-
+        return this;
     }
 
-    public void setFirstName(String value) {
+    public RegistrationPage setFirstName(String value) {
         $("#firstName").setValue(value); // [id=userName] = #userName [class=userName] = .userName
+
+        return this;
     }
 
-    public void setLastName(String value) {
+    public RegistrationPage setLastName(String value) {
 
         $("#LastName").setValue(value);
+
+        return this;
     }
-    public void setEmail(String value) {
+    public RegistrationPage setEmail(String value) {
 
         $("#userEmail").setValue(value);
 
+        return this;
     }
-    public void setGender(String value) {
+    public RegistrationPage setGender(String value) {
 
         $("#genterWrapper").$(byText(value)).click(); // не очень хороший пример с выбором кнопки для определ локали
 
+        return this;
     }
 
-    public void setNumber(String value) {
+    public RegistrationPage setNumber(String value) {
 
         $("#userNumber").setValue(value);
 
+        return this;
     }
-
 }
